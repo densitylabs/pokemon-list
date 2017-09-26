@@ -1,7 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import PokemonSearch from '../components/PokemonSearch';
+import PokemonList from '../components/PokemonList';
+import * as TodoActions from '../actions';
 
-const App = () => (
-  <span> The actual app </span>
-);
+class App extends Component {
+  componentWillMount() {
+    this.props.actions.fetchPokemons();
+  }
+  render(){
+    const {
+      searchTerm,
+      searchType,
+      pokemons
+    } = this.props;
+    return (
+      <div>
+        <PokemonSearch {...{searchTerm, searchType}}  />
+        <PokemonList {...{pokemons, searchTerm, searchType}} />
+      </div>
+    );
+  }
+};
 
-export default App;
+App.propTypes = {
+  pokemons: PropTypes.array.isRequired,
+  searchTerm: PropTypes.string.isRequired,
+  searchType: PropTypes.string.isRequired,
+  actions: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  searchTerm: state.searchTerm,
+  searchType: state.searchType,
+  pokemons: state.pokemons
+});
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(TodoActions, dispatch)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
