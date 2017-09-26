@@ -6,7 +6,7 @@ const PokemonList = ({
 }) => {
   const filteredPokemons = pokemons.filter(pokemon => {
     if (searchTerm) {
-      return pokemon.name.includes(searchTerm);
+      return pokemon.ename.toLowerCase().includes(searchTerm.toLowerCase());
     }
 
     return true;
@@ -15,7 +15,7 @@ const PokemonList = ({
     <ul>
       {
         filteredPokemons.map((pokemon, index) => (
-          <li key={index}>{ pokemon.name }</li>
+          <li key={index}>{ pokemon.ename }</li>
         ))
       }
     </ul>

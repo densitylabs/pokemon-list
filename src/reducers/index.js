@@ -10,7 +10,7 @@ export default function reducer(state = INITIAL_STATE, action) {
     case 'FETCH_POKEMONS_SUCCESS':
       return {
         ...state,
-        pokemons: action.response.data.results
+        pokemons: action.response.data
       }
     case 'UPDATE_SEARCH_TERM':
       return {

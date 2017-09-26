@@ -1,8 +1,6 @@
-const request = require('request');
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const url = require('url');
 
 const PORT = 3001;
 
@@ -10,13 +8,24 @@ const app = express();
 const logger = morgan('tiny');
 
 app.use(logger);
+app.use(cors());
 
-app.use(
-  '/api/*',
-  cors(),
+const pokemons = require('./data/pokedex.json');
+const types = require('./data/types.json');
+
+const firstGen = pokemons.slice(0, 151);
+
+app.get(
+  '/api/pokemon',
   (req, res) => {
-    const { path } = url.parse(req.baseUrl);
-    request(`http://pokeapi.co${path}`).pipe(res);
+    res.json(firstGen);
+  }
+);
+
+app.get(
+  '/api/types',
+  (req, res) => {
+    res.json(types);
   }
 );
 
