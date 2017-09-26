@@ -4,6 +4,10 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.5",
+    "foreman": "^2.0.0",
+    "morgan": "^1.8.2",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -11,10 +15,13 @@
     "react-scripts": "1.0.13",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "request": "^2.82.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "nf start",
+    "frontend": "react-scripts start",
+    "server": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
