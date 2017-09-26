@@ -13,13 +13,15 @@ class App extends Component {
   render(){
     const {
       searchTerm,
-      searchType,
       pokemons
     } = this.props;
     return (
       <div>
-        <PokemonSearch {...{searchTerm, searchType}}  />
-        <PokemonList {...{pokemons, searchTerm, searchType}} />
+        <PokemonSearch
+          searchTerm={searchTerm}
+          onSearchTermChange={this.props.actions.updateSearchTerm}
+        />
+        <PokemonList {...{pokemons, searchTerm}} />
       </div>
     );
   }
@@ -28,13 +30,11 @@ class App extends Component {
 App.propTypes = {
   pokemons: PropTypes.array.isRequired,
   searchTerm: PropTypes.string.isRequired,
-  searchType: PropTypes.string.isRequired,
   actions: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
   searchTerm: state.searchTerm,
-  searchType: state.searchType,
   pokemons: state.pokemons
 });
 

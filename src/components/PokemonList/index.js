@@ -2,15 +2,20 @@ import React from 'react';
 
 const PokemonList = ({
   searchTerm,
-  searchType,
   pokemons
 }) => {
-  const filteredPokemons = pokemons.slice();
+  const filteredPokemons = pokemons.filter(pokemon => {
+    if (searchTerm) {
+      return pokemon.name.includes(searchTerm);
+    }
+
+    return true;
+  });
   return (
     <ul>
       {
         filteredPokemons.map((pokemon, index) => (
-          <li key={index}>{ pokemon }</li>
+          <li key={index}>{ pokemon.name }</li>
         ))
       }
     </ul>
