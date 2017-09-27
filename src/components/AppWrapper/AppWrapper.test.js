@@ -1,21 +1,33 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import AppWrapper from './index';
+import Header from '../Header';
 
-const getWrapper = () =>
-  mount(<AppWrapper />);
+const getWrapper = ({ children } = {}) => {
+  if (children) {
+    return shallow(
+      <AppWrapper>
+        { children }
+      </AppWrapper>
+    );
+  }
+  return shallow(<AppWrapper />);
+};
 
 test('renders without crashing', () => {
   const wrapper = getWrapper();
   expect(wrapper).not.toBeNull();
 });
 
-test('renders the logo', () => {
+test('renders the Header', () => {
   const wrapper = getWrapper();
-  expect(wrapper.find('.App-logo').length).toBe(1);
+  expect(wrapper.find(Header).exists()).toBe(true);
 });
 
-test('renders the title', () => {
-  const wrapper = getWrapper();
-  expect(wrapper.find('.App-header').text()).toEqual('Pokemon List');
+test('renders the children components', () => {
+  const text = `I'm a child component`;
+  const children = <span>{ text }</span>;
+  const wrapper = getWrapper({ children });
+  expect(wrapper.find('span').exists()).toBe(true);
+  expect(wrapper.find('span').text()).toEqual(text);
 });
